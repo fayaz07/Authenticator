@@ -1,4 +1,4 @@
-package `in`.mohammadfayaz.authenticator
+package `in`.mohammadfayaz.authenticator.services
 
 import android.content.Intent
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -19,6 +19,7 @@ class MyFCMService : FirebaseMessagingService() {
 
   override fun onMessageReceived(p0: RemoteMessage) {
     super.onMessageReceived(p0)
+    // I don't want to show notification when the app is turned on
   }
 
   override fun onMessageSent(p0: String) {
