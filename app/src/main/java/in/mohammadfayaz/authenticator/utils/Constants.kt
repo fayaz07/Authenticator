@@ -5,7 +5,7 @@ object RequestTypes {
 }
 
 object ResponseTypes {
-  const val RECEIVED_OTP = "sent_otp"
+  const val RECEIVED_OTP = "otp_sent"
   const val FCM_ACK = "fcm_ack"
 }
 

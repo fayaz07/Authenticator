@@ -11,7 +11,6 @@ import org.java_websocket.handshake.ServerHandshake
 import org.json.JSONObject
 import java.net.URI
 
-
 class MyWebSocketClient(url: URI) : WebSocketClient(url) {
 
   private val _events = MutableLiveData<EventData>()
@@ -19,11 +18,16 @@ class MyWebSocketClient(url: URI) : WebSocketClient(url) {
 
   override fun onMessage(message: String?) {
     if (message != null){
+      println(message)
       val obj = JSONObject(message)
       if (obj.getString("type").toString() != null) {
         when (obj.getString("type")) {
           ResponseTypes.RECEIVED_OTP -> {
+            println("Received an otp")
             _events.postValue(EventData(obj.get("data").toString(), EventTypes.RECEIVED_OTP))
+          }
+          ResponseTypes.FCM_ACK -> {
+            _events.postValue(EventData(obj.get("data").toString(), EventTypes.FCM_ACKNOWLEDGEMENT))
           }
         }
       }
@@ -52,5 +56,4 @@ class MyWebSocketClient(url: URI) : WebSocketClient(url) {
     jsonObject.put("fcmToken", fcmToken)
     this.send(jsonObject.toString())
   }
-
 }

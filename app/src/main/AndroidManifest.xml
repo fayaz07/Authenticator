@@ -12,14 +12,14 @@
     <service
       android:name=".services.MyWebSocketService"
       android:enabled="true"
-      android:exported="true"></service>
-    <service
-      android:name=".services.MyFCMService"
-      android:exported="false">
-      <intent-filter>
-        <action android:name="com.google.firebase.MESSAGING_EVENT" />
-      </intent-filter>
-    </service>
+      android:exported="true" />
+<!--    <service-->
+<!--      android:name=".services.MyFCMService"-->
+<!--      android:exported="false">-->
+<!--      <intent-filter>-->
+<!--        <action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+<!--      </intent-filter>-->
+<!--    </service>-->
 
     <activity
       android:name=".ui.MainActivity"

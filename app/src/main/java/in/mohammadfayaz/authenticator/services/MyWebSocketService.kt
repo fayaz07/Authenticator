@@ -12,7 +12,7 @@ import java.net.URI
 class MyWebSocketService : Service() {
 
   private val url = "ws://10.0.2.2:8080/"
-  private val socketClient: MyWebSocketClient = MyWebSocketClient(URI(url))
+  private var socketClient: MyWebSocketClient? = null
 
   val TAG = "MyService"
   val mBinder = MyBinder()
@@ -24,16 +24,17 @@ class MyWebSocketService : Service() {
 
   fun connectToSocket() {
     //open websocket
-    socketClient.connect()
+    socketClient = MyWebSocketClient(java.net.URI(url))
+    socketClient!!.connect()
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    socketClient.close()
+    socketClient?.close()
   }
 
   fun getEventListener(): LiveData<EventData> {
-    return socketClient.events
+    return socketClient?.events!!
   }
 
   override fun onBind(intent: Intent): IBinder {
@@ -50,7 +51,7 @@ class MyWebSocketService : Service() {
   }
 
   fun sendFCMTokenAndClientId(fcmToken: String, clientId: String) {
-    socketClient.sayHelloToServer(fcmToken, clientId)
+    socketClient?.sayHelloToServer(fcmToken, clientId)
   }
 
 }
