@@ -1,9 +1,7 @@
 package `in`.mohammadfayaz.authenticator.services
 
-import `in`.mohammadfayaz.authenticator.MyWebSocketClient
+import `in`.mohammadfayaz.authenticator.network.MyWebSocketClient
 import `in`.mohammadfayaz.authenticator.utils.EventData
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.Binder
@@ -44,11 +42,15 @@ class MyWebSocketService : Service() {
 
   class MyBinder : Binder() {
     private var instance: MyWebSocketService? = null
-    public fun getService() : MyWebSocketService{
-      if(instance == null)
+    public fun getService(): MyWebSocketService {
+      if (instance == null)
         instance = MyWebSocketService()
       return instance!!
     }
+  }
+
+  fun sendFCMTokenAndClientId(fcmToken: String, clientId: String) {
+    socketClient.sayHelloToServer(fcmToken, clientId)
   }
 
 }
